@@ -6,7 +6,7 @@ import numpy as np
 app = FastAPI(title="Wine Quality Predictor")
 
 NAME = "Mantri Pranathi"
-ROLL_NO = "2022BCS0025"
+ROLL_NO = "2022BCS00229"
 
 model = joblib.load("model.pkl")
 
