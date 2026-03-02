@@ -6,9 +6,10 @@ import numpy as np
 app = FastAPI(title="Wine Quality Predictor")
 
 NAME = "Swapna"
-ROLL_NO = "2022BCS00229"
+ROLL_NO = "2022BCS0229"
 
 model = joblib.load("model.pkl")
+
 
 class WineFeatures(BaseModel):
     fixed_acidity: float
@@ -23,9 +24,16 @@ class WineFeatures(BaseModel):
     sulphates: float
     alcohol: float
 
+
 @app.get("/")
 def home():
     return {"status": "ok", "service": "wine-quality-inference"}
+
+
+@app.get("/health")
+def health():
+    return {"status": "healthy"}
+
 
 @app.post("/predict")
 def predict(features: WineFeatures):
@@ -44,8 +52,6 @@ def predict(features: WineFeatures):
     ]], dtype=float)
 
     pred = model.predict(x)[0]
-
-
     wine_quality = int(round(float(pred)))
 
     return {
